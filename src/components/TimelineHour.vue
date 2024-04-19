@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { isHourValid } from '../validators'
+import { isHourValid } from '../validators.js'
 
 const props = defineProps({
   hour: {

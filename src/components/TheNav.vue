@@ -1,6 +1,6 @@
 <template>
-  <nav class="sticky bottom-0 z-10 bg-white">
-    <ul class="flex items-center justify-around border-t">
+  <nav class="sticky bottom-0 z-10 bg-white flex">
+    <ul class="flex items-center justify-around border-t flex-grow">
       <NavItem
         v-for="(icon, page) in NAV_ITEMS"
         :key="page"
@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
 import NavItem from './NavItem.vue'
-import { NAV_ITEMS } from '../constants'
-import { isPageValid } from '../validators'
+import { NAV_ITEMS } from '../constants.js'
+import { isPageValid } from '../validators.js'
 
 defineProps({
   currentPage: {

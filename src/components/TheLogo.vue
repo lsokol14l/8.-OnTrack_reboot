@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import { PAGE_TIMELINE } from '../constants.ts'
+import { PAGE_TIMELINE } from '../constants.js'
 </script>

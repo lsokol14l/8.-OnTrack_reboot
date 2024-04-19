@@ -1,17 +1,13 @@
 <template>
   <button
-    :class="`${typeClasses[type as keyof typeof typeClasses]} rounded-full p-3 disabled:cursor-not-allowed disabled:opacity-50 transition`"
+    :class="`${typeClasses[type]} rounded-full p-3 disabled:cursor-not-allowed disabled:opacity-50 transition`"
   >
     <slot></slot>
   </button>
 </template>
 
 <script lang="ts">
-import {
-  BUTTON_TYPE_DANGER,
-  BUTTON_TYPE_NEUTRAL,
-  BUTTON_TYPE_PRIMARY
-} from '../constants'
+import { BUTTON_TYPE_DANGER, BUTTON_TYPE_NEUTRAL, BUTTON_TYPE_PRIMARY } from '../constants'
 //чтобы статический объект создавался только один раз
 const typeClasses = {
   [BUTTON_TYPE_NEUTRAL]: 'bg-gray-100 enabled:hover:bg-gray-200',
@@ -21,7 +17,7 @@ const typeClasses = {
 </script>
 
 <script setup lang="ts">
-import { isButtonTypeValid } from '../validators.ts'
+import { isButtonTypeValid } from '../validators.js'
 
 defineProps({
   type: {

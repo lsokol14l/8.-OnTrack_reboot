@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import BaseSelect from './BaseSelect.vue'
-import { isTimelineItemValid, validateSelectOptions } from '../validators'
+import { isTimelineItemValid, validateSelectOptions } from '../validators.js'
 import { ref } from 'vue'
 import TimelineHour from './TimelineHour.vue'
 

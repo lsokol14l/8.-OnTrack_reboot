@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-7">
+  <div class="mt-7 flex flex-col flex-grow">
     <ul>
       <TimelineItem
         v-for="timelineItem in timelineItems"
@@ -17,7 +17,7 @@ import { validateTimelineItems, validateSelectOptions } from '../validators'
 
 defineProps({
   timelineItems: {
-    type: Array<{ hour: number }>,
+    type: Array,
     required: true,
     validator: validateTimelineItems
   },

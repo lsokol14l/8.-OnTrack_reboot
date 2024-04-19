@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col grow">
+  <div class="flex flex-col flex-grow">
     <ul v-if="activities.length" class="divide-y grow">
       <ActivityItem
         v-for="activity in activities"
@@ -15,14 +15,14 @@
 
 <script setup lang="ts">
 import ActivityItem from '../components/ActivityItem.vue'
-import { isActivityValid, validateActivities } from '../validators'
+import { isActivityValid, validateActivities } from '../validators.js'
 import TheActivityForm from '../components/TheActivityForm.vue'
 import TheActivitiesEmptyState from '../components/TheActivitiesEmptyState.vue'
 
 defineProps({
   activities: {
     required: true,
-    type: Array as () => Activity[],
+    type: Array,
     validator: validateActivities
   }
 })
@@ -31,11 +31,4 @@ const emit = defineEmits({
   deleteActivity: isActivityValid,
   createActivity: isActivityValid
 })
-
-//selfmade interface
-interface Activity {
-  id: string
-  name: string
-  secondsToComplete: number
-}
 </script>
