@@ -1,23 +1,13 @@
+<script>
+export default {
+  inheritAttrs: false
+}
+</script>
+
 <template>
   <li class="flex-1">
-    <a
-      :href="`#${page}`"
-      class="flex flex-col p-4 items-center text-xs capitalize"
-    >
-      <component :is="icon" class="h-6 w-6" />
-      {{ page }}
+    <a v-bind="$attrs" class="flex flex-col items-center p-2 text-xs capitalize">
+      <slot></slot>
     </a>
   </li>
 </template>
-
-<script setup lang="ts">
-defineProps({
-  icon: {
-    type: Function,
-    required: true
-  },
-  page: String
-})
-</script>
-
-<style scoped></style>

@@ -1,59 +1,77 @@
-import { NAV_ITEMS, HOUR_IN_DAY, MIDNIGHT_HOUR, BUTTON_TYPES } from './constants'
+import { BUTTON_TYPES, NAV_ITEMS, HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants'
 
-export const isPageValid = (page) => {
+export function isPageValid(page) {
   return Object.keys(NAV_ITEMS).includes(page)
 }
-export const isButtonTypeValid = (type) => {
+
+export function isButtonTypeValid(type) {
   return BUTTON_TYPES.includes(type)
 }
-export const isSelectValueValid = (value) => {
-  return isNotEmptyString(value) || isNumber(value) || isNull(value)
-}
-export const isTimelineItemValid = (hour) => {
-  return isHourValid(hour)
-}
-export const validateSelectOptions = (options) => {
-  return options.every(isSelectOptionValid)
-}
-export const validateTimelineItems = (timelineItems) => {
+
+export function validateTimelineItems(timelineItems) {
   return timelineItems.every(isTimelineItemValid)
 }
-export const isUndefinedOrNull = (value) => {
-  return isUndefined(value) || isNull(value)
+
+export function isTimelineItemValid({ hour }) {
+  return isHourValid(hour)
 }
-export const isNumberOrNull = (value) => {
-  return isNumber(value) || isNull(value)
-}
-export const isHourValid = (hour) => {
-  return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOUR_IN_DAY - 1)
-}
-export const isActivityValid = ({ id, name, secondsToComplete }) => {
-  return [isNotEmptyString(name), isNumber(secondsToComplete), isNotEmptyString(id)].every(Boolean)
-}
-export const validateActivities = (activities) => {
+
+export function validateActivities(activities) {
   return activities.every(isActivityValid)
 }
-const isSelectOptionValid = ({ value, label }) => {
-  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
+
+export function isActivityValid({ id, name, secondsToComplete }) {
+  return [
+    isNotEmptyString(id),
+    isNotEmptyString(name),
+    isNumber(secondsToComplete)
+  ].every(Boolean)
 }
-export const isNull = (value) => {
-  return value === null
+
+function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
 }
-export const isNaN = (value) => {
-  return isNaN(value)
+
+export function isHourValid(hour) {
+  return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
 }
-export const isUndefined = (value) => {
+
+export function validateSelectOptions(options) {
+  return options.every(isSelectOptionValid)
+}
+
+export function isUndefinedOrNull(value) {
+  return isUndefined(value) || isNull(value)
+}
+
+export function isSelectValueValid(value) {
+  return isNotEmptyString(value) || isNumberOrNull(value)
+}
+
+export function isNumberOrNull(value) {
+  return isNumber(value) || isNull(value)
+}
+
+export function isUndefined(value) {
   return value === undefined
 }
-const isNumber = (value) => {
+
+export function isNull(value) {
+  return value === null
+}
+
+function isSelectOptionValid({ value, label }) {
+  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
+}
+
+function isBetween(value, start, end) {
+  return value >= start && value <= end
+}
+
+function isNumber(value) {
   return typeof value === 'number'
 }
-const isString = (value) => {
+
+function isString(value) {
   return typeof value === 'string'
-}
-const isBetween = (value, min, max) => {
-  return value >= min && value <= max
-}
-const isNotEmptyString = (value) => {
-  return isString(value) && value.length > 0
 }

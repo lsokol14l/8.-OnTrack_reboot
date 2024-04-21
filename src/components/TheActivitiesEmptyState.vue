@@ -1,10 +1,6 @@
 <template>
-  <div class="flex flex-col grow justify-center items-center">
-    <img
-      src="../assets/img/no_activities.svg"
-      alt="no activities"
-      class="h-48"
-    />
-    <span class="mt-4 text-2xl text-gray-600">There is no activities...</span>
+  <div class="flex grow flex-col items-center gap-4 p-8 text-center">
+    <img src="../assets/img/no_activities.svg" alt="No activities" class="h-48" />
+    <span class="text-gray-400">You don't have any activities</span>
   </div>
 </template>

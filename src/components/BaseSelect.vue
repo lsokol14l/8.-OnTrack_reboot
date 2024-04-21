@@ -1,48 +1,20 @@
-<template>
-  <BaseButton @click="select(null)" :type="BUTTON_TYPE_NEUTRAL">
-    <XMarkIcon class="h-8 w-8" />
-  </BaseButton>
-  <select
-    class="w-full truncate rounded bg-gray-100 px-2 py-1 text-2xl"
-    @change="select($event.target)"
-  >
-    <!--+$event.target.value == Number($event.target.value) --->
-
-    <option :selected="isNotSelected" disabled value="">
-      {{ placeholder }}
-    </option>
-    <option
-      v-for="option in props.options"
-      :key="String(option)"
-      :value="option"
-      :selected="option === props.selected"
-    >
-      {{ option.label }}
-    </option>
-  </select>
-</template>
-
-<script setup lang="ts">
-import { XMarkIcon } from '@heroicons/vue/24/outline'
-import BaseButton from './BaseButton.vue'
-import {
-  validateSelectOptions,
-  isUndefinedOrNull,
-  isSelectValueValid
-} from '../validators.js'
+<script setup>
 import { computed } from 'vue'
-import { BUTTON_TYPE_NEUTRAL } from '../constants.js'
-import { normalizeSelectValue } from '../functions.js'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { BUTTON_TYPE_NEUTRAL } from '../constants'
+import { normalizeSelectValue } from '../functions'
+import { validateSelectOptions, isSelectValueValid, isUndefinedOrNull } from '../validators'
+import BaseButton from './BaseButton.vue'
 
 const props = defineProps({
-  selected: Number || String,
+  selected: [String, Number],
   placeholder: {
-    type: String,
-    required: true
+    required: true,
+    type: String
   },
   options: {
-    type: Array,
     required: true,
+    type: Array,
     validator: validateSelectOptions
   }
 })
@@ -53,7 +25,31 @@ const emit = defineEmits({
 
 const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
 
-const select = (value) => {
+function select(value) {
   emit('select', normalizeSelectValue(value))
 }
 </script>
+
+<template>
+  <div class="flex gap-2">
+    <BaseButton :type="BUTTON_TYPE_NEUTRAL" @click="select(null)">
+      <XMarkIcon class="h-8" />
+    </BaseButton>
+    <select
+      class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
+      @change="select($event.target.value)"
+    >
+      <option :selected="isNotSelected" disabled value="">
+        {{ placeholder }}
+      </option>
+      <option
+        v-for="{ value, label } in options"
+        :key="value"
+        :value="value"
+        :selected="value === selected"
+      >
+        {{ label }}
+      </option>
+    </select>
+  </div>
+</template>
