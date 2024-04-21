@@ -1,9 +1,4 @@
-import {
-  PAGE_TIMELINE,
-  SECONDS_IN_HOUR,
-  HOURS_IN_DAY,
-  MIDNIGHT_HOUR
-} from './constants'
+import { PAGE_TIMELINE, SECONDS_IN_HOUR, HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants'
 import { isPageValid, isNull } from './validators'
 
 export function normalizePageHash() {
@@ -38,7 +33,10 @@ export function generateTimelineItems() {
   const timelineItems = []
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timelineItems.push({ hour })
+    timelineItems.push({
+      hour,
+      activityId: null
+    })
   }
 
   return timelineItems

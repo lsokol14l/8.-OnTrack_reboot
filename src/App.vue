@@ -15,7 +15,7 @@ import TheProgress from './pages/TheProgress.vue'
 
 const currentPage = ref(normalizePageHash())
 
-const timelineItems = generateTimelineItems()
+const timelineItems = ref(generateTimelineItems())
 
 const activities = ref(generateActivities())
 
@@ -30,7 +30,21 @@ function createActivity(activity) {
 }
 
 function deleteActivity(activity) {
+  timelineItems.value.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
+    }
+  })
+
   activities.value.splice(activities.value.indexOf(activity), 1)
+}
+
+const setTimelineItemActivity = ({ timelineItem, activity }) => {
+  timelineItem.activityId = activity?.id || null
+}
+
+const setActivitySecondsToComplete = ({ activity, secondsToComplete }) => {
+  activity.secondsToComplete = secondsToComplete
 }
 </script>
 
@@ -39,15 +53,18 @@ function deleteActivity(activity) {
 
   <main class="flex flex-grow flex-col">
     <TheTimeline
+      @set-timeline-item-activity="setTimelineItemActivity($event)"
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
       :activity-select-options="activitySelectOptions"
+      :activities="activities"
     />
     <TheActivities
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
       @create-activity="createActivity"
       @delete-activity="deleteActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete($event)"
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>

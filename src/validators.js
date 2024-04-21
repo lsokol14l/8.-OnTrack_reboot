@@ -21,11 +21,7 @@ export function validateActivities(activities) {
 }
 
 export function isActivityValid({ id, name, secondsToComplete }) {
-  return [
-    isNotEmptyString(id),
-    isNotEmptyString(name),
-    isNumber(secondsToComplete)
-  ].every(Boolean)
+  return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
 
 function isNotEmptyString(value) {
@@ -68,7 +64,7 @@ function isBetween(value, start, end) {
   return value >= start && value <= end
 }
 
-function isNumber(value) {
+export function isNumber(value) {
   return typeof value === 'number'
 }
 
